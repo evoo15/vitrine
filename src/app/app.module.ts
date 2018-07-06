@@ -7,13 +7,14 @@ import { RegisterComponent } from './register/register.component';
 import { FullLayoutComponent } from './full-layout/full-layout.component';
 import {RouterModule, Routes} from '@angular/router';
 import { WelcomeComponent } from './welcome/welcome.component';
-
+import {HttpClientModule} from '@angular/common/http';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
   {path: 'register', component: RegisterComponent},
   {path: '' , component: WelcomeComponent}
-]
+];
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,7 +25,8 @@ const appRoutes: Routes = [
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
