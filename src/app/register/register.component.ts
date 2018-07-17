@@ -17,6 +17,8 @@ export class RegisterComponent implements OnInit {
                private router: Router) { }
 
   ngOnInit() {
+    if (this.userService.isConnected()) {
+      this.router.navigate(['']); }
   }
 
   onSubmit() {

@@ -5,16 +5,16 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { FullLayoutComponent } from './full-layout/full-layout.component';
-import {RouterModule, Routes} from '@angular/router';
+
 import { WelcomeComponent } from './welcome/welcome.component';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
+import {StorageService} from './shared/services/storage.service';
+import {AppRoutingModule} from './app.routing';
+import {ProductService} from './shared/services/product.service';
+import {UserService} from './shared/services/user.service';
 
-const appRoutes: Routes = [
-  { path: 'login', component: LoginComponent },
-  {path: 'register', component: RegisterComponent},
-  {path: '' , component: WelcomeComponent}
-];
+
 
 @NgModule({
   declarations: [
@@ -26,11 +26,14 @@ const appRoutes: Routes = [
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(appRoutes),
+    AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+
   ],
-  providers: [],
+  providers: [StorageService,
+  ProductService,
+  UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

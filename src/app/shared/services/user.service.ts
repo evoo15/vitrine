@@ -1,27 +1,37 @@
 import { Injectable } from '@angular/core';
 import {User} from '../models/user.model';
-import {HttpHeaders} from '@angular/common/http';
 import {HttpClient} from '@angular/common/http';
 import {Credentials} from '../models/credentials';
 import {StorageService} from './storage.service';
+import {GenericService} from './generic.service';
+import {Config} from './config';
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
+export class UserService extends GenericService{
 
-  constructor(private http: HttpClient,  private storageService: StorageService) { }
+  constructor(private http: HttpClient, private storageService: StorageService) {
+    super();
+  }
   addUser(user: User) {
-    const headers = new HttpHeaders().set('Content-Type', 'application/json');
-    return this.http.post('http://localhost/backend/public/api/adduser', user, { headers: headers
-    });
-}
+    const headers = this.headers.set('Authorization', 'Bearer' + this.storageService.read(Config.tokenKey));
+    return this.http.post(Config.baseUrl + '/adduser', user);
+    }
+
 
   loginUser(credentials: Credentials) {
-    const headers = new HttpHeaders().set('Content-Type', 'application/json');
-    return this.http.post('http://localhost/backend/public/api/auth/login', credentials, { headers: headers
-    });
+  return this.http.post(Config.baseUrl + '/auth/login', credentials);
+  }
+
+  me() {
+    const headers = this.headers.set('Authorization', 'Bearer' + this.storageService.read(Config.tokenKey));
+    return this.http.get(Config.baseUrl + '/auth/me', {headers});
+  }
+
+  isConnected() {
+    return this.storageService.isExist(Config.tokenKey);
   }
 
 }
