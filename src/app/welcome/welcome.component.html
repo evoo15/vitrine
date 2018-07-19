@@ -28,6 +28,7 @@
                   <div class="image"><a href="product.html"><img src="assets/image/product/lotto-sports-shoes-white-210x210.jpg" alt="Lotto Sports Shoes" /></a></div>
                   <div class="name">{{product.label}}</div>
                   <div class="price">{{product.prix}}</div>
+                  <div class="price">quantite:{{product.quantite}}</div>
                   <div class="dispo" *ngIf="product.quantite>0" >En stock</div>
                   <div class="nonDispo" *ngIf="product.quantite<=0" >Non disponible</div>
                   <div class="cart">

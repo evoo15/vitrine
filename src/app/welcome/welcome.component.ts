@@ -31,6 +31,14 @@ export class WelcomeComponent implements OnInit {
 
 
   buyProduct(index: number) {
+    this.productService.buyProduct(this.products[index].id)
+      .subscribe(data => {
+          console.log('Le produit a été ajouté à votre panier');
+          this.products[index].quantite--;
+        } ,
+        error => {
+          console.log(error);
+        });
   }
 
 }
